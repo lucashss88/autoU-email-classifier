@@ -3,6 +3,43 @@ const resultArea = document.getElementById('resultado-area');
 const loading = document.getElementById('loading');
 const categoriaBadge = document.getElementById('res-categoria');
 const respostaBox = document.getElementById('res-resposta');
+const textoEmail = document.querySelector('textarea[name="texto_email"]');
+const arquivoEmail = document.querySelector('input[name="arquivo_email"]');
+const btnAnalisar = document.getElementById('btn-analisar');
+
+arquivoEmail.addEventListener('change', () => {
+    if (arquivoEmail.files.length > 0) {
+        textoEmail.disabled = true;
+        textoEmail.value = '';
+        textoEmail.style.opacity = '0.5';
+        textoEmail.style.cursor = 'not-allowed';
+    } else {
+        textoEmail.disabled = false;
+        textoEmail.style.opacity = '1';
+        textoEmail.style.cursor = 'auto';
+    }
+    validarFormulario();
+});
+
+textoEmail.addEventListener('input', () => {
+    if (textoEmail.value.trim().length > 0) {
+        arquivoEmail.disabled = true;
+        arquivoEmail.value = '';
+        arquivoEmail.style.opacity = '0.5';
+        arquivoEmail.style.cursor = 'not-allowed';
+    } else {
+        arquivoEmail.disabled = false;
+        arquivoEmail.style.opacity = '1';
+        arquivoEmail.style.cursor = 'auto';
+    }
+    validarFormulario();
+});
+
+function validarFormulario() {
+    const temTexto = textoEmail.value.trim().length > 0;
+    const temArquivo = arquivoEmail.files.length > 0;
+    btnAnalisar.disabled = !(temTexto || temArquivo);
+}
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -46,3 +83,5 @@ form.addEventListener('submit', async (e) => {
         loading.style.display = 'none';
     }
 });
+
+validarFormulario();
