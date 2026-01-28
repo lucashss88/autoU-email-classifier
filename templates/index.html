@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AutoU - Classificador de Emails</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="loading" class="loading-overlay">
+      <div
+        class="spinner-border text-primary"
+        style="width: 3rem; height: 3rem"
+        role="status"
+      >
+        <span class="visually-hidden">Carregando...</span>
+      </div>
+    </div>
+
+    <a href="/" class="logo-container" title="Voltar para o início">
+      <img
+        src="{{ url_for('static', filename='autou_logo.jpg') }}"
+        alt="Logo AutoU"
+      />
+    </a>
+
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="text-center mb-4">
+            <h1 class="fw-bold text-primary">
+              AutoU - Classificador Inteligente de Emails
+            </h1>
+            <p class="text-muted">Desafio Técnico - Solução Automatizada</p>
+          </div>
+
+          <div class="card shadow-sm p-4">
+            <form id="form-upload">
+              <div class="mb-3">
+                <label class="form-label fw-bold"
+                  >Opção 1: Cole o texto do email</label
+                >
+                <textarea
+                  class="form-control"
+                  name="texto_email"
+                  rows="4"
+                  placeholder="Ex: Gostaria de saber o status do meu chamado..."
+                ></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold"
+                  >Opção 2: Envie um arquivo (.txt ou .pdf)</label
+                >
+                <input
+                  class="form-control"
+                  type="file"
+                  name="arquivo_email"
+                  accept=".txt,.pdf"
+                />
+              </div>
+
+              <div class="d-grid gap-2">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-lg"
+                  id="btn-analisar"
+                >
+                  <span
+                    id="spinner"
+                    class="spinner-border spinner-border-sm d-none"
+                    role="status"
+                  ></span>
+                  Analisar Email
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div id="resultado-area" class="card card-result shadow-sm p-4 mt-4">
+            <h4 class="mb-3">Resultado da Análise:</h4>
+
+            <p>
+              <strong>Categoria:</strong>
+              <span id="res-categoria" class="badge bg-secondary fs-5"
+                >---</span
+              >
+            </p>
+
+            <div class="mb-3">
+              <label class="fw-bold">Sugestão de Resposta:</label>
+              <textarea
+                id="res-resposta"
+                class="form-control bg-light"
+                rows="3"
+                readonly
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
