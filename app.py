@@ -5,13 +5,12 @@ from flask import Flask, render_template, request, jsonify
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
 from pypdf import PdfReader
+from io import BytesIO
 
 load_dotenv()
 
 app = Flask(__name__)
 
-app.config['UPLOAD_FOLDER'] = 'uploads/'
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 ALLOWED_EXTENSIONS = {'txt', 'pdf'}
 
 api_key = os.getenv("GEMINI_API_KEY")
@@ -37,32 +36,33 @@ def processar():
         
         elif arquivo and allowed_file(arquivo.filename):
             filename = secure_filename(arquivo.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            arquivo.save(filepath)
 
             if filename.lower().endswith('.pdf'):
                 try:
-                    reader = PdfReader(filepath)
+                    pdf_file = BytesIO(arquivo.read())
+                    reader = PdfReader(pdf_file)
                     conteudo_final = "\n".join([page.extract_text() for page in reader.pages])
                 except Exception as e:
                     return jsonify({'erro': 'O arquivo PDF está corrompido ou ilegível.'}), 400
             else:
-                with open(filepath, 'r', encoding='utf-8') as f:
-                    conteudo_final = f.read()
+                try:
+                    conteudo_final = arquivo.read().decode('utf-8')
+                except Exception as e:
+                    return jsonify({'erro': 'O arquivo TXT está com encoding inválido. Use UTF-8.'}), 400
         else:
             return jsonify({'erro': 'Por favor, digite um texto ou envie um arquivo válido.'}), 400
 
         if not conteudo_final.strip():
             return jsonify({'erro': 'Não foi possível identificar texto no email enviado.'}), 400
 
-        resultado = analisar_com_gpt(conteudo_final)
+        resultado = analisar_com_gemini(conteudo_final)
         return jsonify(resultado)
 
     except Exception as e:
         print(f"ERRO NO SERVIDOR: {e}")
         return jsonify({'erro': 'Ocorreu um erro interno. Verifique o terminal do Python.'}), 500
 
-def analisar_com_gpt(texto):
+def analisar_com_gemini(texto):
     prompt = f"""
     Você é um assistente de triagem de emails para a empresa AutoU.
     Analise o seguinte email e classifique-o.
