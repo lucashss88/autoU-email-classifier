@@ -32,6 +32,80 @@
       />
     </a>
 
+    <div class="help-container">
+      <button
+        type="button"
+        class="button-help"
+        title="Ajuda"
+        data-bs-toggle="modal"
+        data-bs-target="#helpModal"
+      >
+        ?
+      </button>
+    </div>
+
+    <div
+      class="modal fade"
+      id="helpModal"
+      tabindex="-1"
+      aria-labelledby="helpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="helpModalLabel">Como Usar</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <h6 class="fw-bold mb-3">🎯 Funcionalidades Principais:</h6>
+            <ul class="mb-4">
+              <li>
+                <strong>Classificação Automática:</strong> A IA analisa e
+                classifica seus emails como Produtivo ou Improdutivo
+              </li>
+              <li>
+                <strong>Sugestão de Resposta:</strong> Receba respostas
+                automáticas adequadas e contextualizadas
+              </li>
+              <li>
+                <strong>Processamento Inteligente:</strong> Utiliza Google
+                Gemini para análise semântica avançada
+              </li>
+            </ul>
+
+            <h6 class="fw-bold mb-3">📝 Opções Disponíveis:</h6>
+
+            <div class="option-help mb-3">
+              <h6 class="text-primary">
+                <strong>✏️ Opção 1: Cole o texto do email</strong>
+              </h6>
+              <p class="text-muted mb-0">
+                Cole o corpo do email diretamente no campo de texto. Ideal para
+                mensagens curtas ou quando você quer analisar rapidamente.
+              </p>
+            </div>
+
+            <div class="option-help">
+              <h6 class="text-primary">
+                <strong>📎 Opção 2: Envie um arquivo</strong>
+              </h6>
+              <p class="text-muted">
+                Faça upload de arquivos <code>.txt</code> ou <code>.pdf</code>.
+                Perfeito para emails salvos ou documentos completos. O sistema
+                lerá automaticamente o conteúdo.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="container mt-5">
       <div class="row justify-content-center">
         <div class="col-md-8">
@@ -109,6 +183,7 @@
       </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
   </body>
 </html>
