@@ -9,7 +9,6 @@ Uma aplicação web full-stack que utiliza Inteligência Artificial (**Google Ge
 ## 🔗 Links do Projeto
 
 - **Aplicação Online (Deploy):** https://autouemailclassifier.vercel.app/
-- **Vídeo Demonstrativo:** [COLOQUE_SEU_LINK_DO_YOUTUBE_AQUI]
 
 ---
 
