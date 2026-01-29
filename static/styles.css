@@ -23,6 +23,9 @@ body {
     border-color: red;
 }
 
+.productive { border-color: green; }
+.unproductive { border-color: red; }
+
 .bg-logo-color {
     background-color: #031A2A;
 }
